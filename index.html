@@ -1,51 +1,65 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page CV</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loker Pendaftaran Dokter</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 
-<!-- Header -->
-<header class="bg-dark text-white text-center py-5">
-    <h1 class="display-4">Nama Anda</h1>
-    <p class="lead">Deskripsi singkat tentang diri Anda</p>
-</header>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Loker Pendaftaran Dokter</h2>
 
-<!-- Container untuk layout -->
-<div class="container mt-4">
     <div class="row">
-
-        <!-- Menu di sebelah kiri -->
-        <div class="col-md-3">
-            <div class="list-group">
-                <a href="#brand" class="list-group-item list-group-item-action">Branda</a>
-                <a href="#cv" class="list-group-item list-group-item-action">CV</a>
-                <a href="#gallery" class="list-group-item list-group-item-action">Galeri</a>
-            </div>
+      <div class="col-md-6">
+        <h4>Pendaftaran Pasien</h4>
+        <div class="form-group">
+          <label for="patient">Tambah Nomor Antrian:</label>
+          <input type="text" class="form-control" id="patient" placeholder="Masukkan nama pasien">
         </div>
+        <button class="btn btn-primary" onclick="tambahNomorAntrian()">Tambah</button>
+      </div>
 
-        <!-- Konten di tengah -->
-        <div class="col-md-9">
-            <!-- Isi web Anda -->
-            <div class="jumbotron">
-                <h2>Selamat datang di CV Saya</h2>
-                <p>Deskripsi lebih lanjut tentang diri Anda dan pengalaman Anda.</p>
-            </div>
-        </div>
+      <div class="col-md-6">
+        <h4>Daftar Nomor Antrian:</h4>
+        <ul class="list-group" id="daftarAntrian">
+          <!-- Daftar nomor antrian akan ditampilkan di sini -->
+        </ul>
+      </div>
     </div>
-</div>
+  </div>
 
-<!-- Footer -->
-<footer class="bg-dark text-white text-center py-3">
-    <p>Hak Cipta © 2023 Nama Anda</p>
-</footer>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    let nomorAntrian = [];
+
+    function tambahNomorAntrian() {
+      const patientInput = document.getElementById('patient');
+      const patientName = patientInput.value.trim();
+
+      if (patientName !== '') {
+        nomorAntrian.push(patientName);
+        patientInput.value = '';
+        tampilkanDaftarAntrian();
+      }
+    }
+
+    function tampilkanDaftarAntrian() {
+      const daftarAntrianElement = document.getElementById('daftarAntrian');
+      daftarAntrianElement.innerHTML = '';
+
+      nomorAntrian.forEach((patient, index) => {
+        const listItem = document.createElement('li');
+        listItem.className = 'list-group-item';
+        listItem.textContent = `Nomor Antrian ${index + 1}: ${patient}`;
+        daftarAntrianElement.appendChild(listItem);
+      });
+    }
+  </script>
 
 </body>
 </html>

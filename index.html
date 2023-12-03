@@ -1,31 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loker Pendaftaran Dokter</title>
+  <title>ilham</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- ... kode sebelumnya ... -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap">
+
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+    }
+    /* ... kode CSS lainnya ... */
+  </style>
 </head>
+
 <body>
 
   <div class="container mt-5">
-    <h2 class="text-center mb-4">Loker Pendaftaran Dokter</h2>
+    <h2 class="text-center mb-4">Loker Pendaftaran</h2>
 
     <div class="row">
       <div class="col-md-6">
-        <h4>Pendaftaran Pasien</h4>
-        <div class="form-group">
-          <label for="patient">Tambah Nomor Antrian:</label>
-          <input type="text" class="form-control" id="patient" placeholder="Masukkan nama pasien">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Pendaftaran Pasien</h4>
+            <div class="form-group">
+              <label for="patient">Tambah Nomor Antrian:</label>
+              <input type="text" class="form-control" id="patient" placeholder="Masukkan nama pasien">
+            </div>
+            <button class="btn btn-primary" onclick="tambahNomorAntrian()">Tambah</button>
+          </div>
         </div>
-        <button class="btn btn-primary" onclick="tambahNomorAntrian()">Tambah</button>
       </div>
 
       <div class="col-md-6">
-        <h4>Daftar Nomor Antrian:</h4>
-        <ul class="list-group" id="daftarAntrian">
-          <!-- Daftar nomor antrian akan ditampilkan di sini -->
-        </ul>
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Daftar Nomor Antrian:</h4>
+            <ul class="list-group" id="daftarAntrian">
+              <!-- Daftar nomor antrian akan ditampilkan di sini -->
+            </ul>
+            <button class="btn btn-success mt-3" onclick="eksekusiAntrian()">Eksekusi Antrian Paling Atas</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Ruang Dokter:</h4>
+            <h5 id="judulPeriksa"></h5>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -35,31 +67,40 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <script>
-    let nomorAntrian = [];
+    let nomorAntrian = 1;
 
     function tambahNomorAntrian() {
       const patientInput = document.getElementById('patient');
       const patientName = patientInput.value.trim();
 
       if (patientName !== '') {
-        nomorAntrian.push(patientName);
+        const nomorAntrianElement = document.getElementById('daftarAntrian');
+        const listItem = document.createElement('li');
+        listItem.className = 'list-group-item';
+        listItem.textContent = `Nomor Antrian ${nomorAntrian++}: ${patientName}`;
+        nomorAntrianElement.appendChild(listItem);
+
         patientInput.value = '';
-        tampilkanDaftarAntrian();
       }
     }
 
-    function tampilkanDaftarAntrian() {
+    function eksekusiAntrian() {
       const daftarAntrianElement = document.getElementById('daftarAntrian');
-      daftarAntrianElement.innerHTML = '';
+      const listItem = daftarAntrianElement.firstElementChild;
 
-      nomorAntrian.forEach((patient, index) => {
-        const listItem = document.createElement('li');
-        listItem.className = 'list-group-item';
-        listItem.textContent = `Nomor Antrian ${index + 1}: ${patient}`;
-        daftarAntrianElement.appendChild(listItem);
-      });
+      if (listItem) {
+        const nomorAntrianPalingAtas = listItem.textContent.split(': ')[1];
+
+        // Tampilkan judul sedang diperiksa dokter
+        const judulPeriksaElement = document.getElementById('judulPeriksa');
+        judulPeriksaElement.textContent = `Sedang Diperiksa Dokter: ${nomorAntrianPalingAtas}`;
+
+        // Hapus nomor antrian yang sudah diproses
+        daftarAntrianElement.removeChild(listItem);
+      }
     }
   </script>
 
 </body>
+
 </html>

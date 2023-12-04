@@ -7,14 +7,29 @@
   <title>ilham</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-  <!-- ... kode sebelumnya ... -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap">
 
   <style>
     body {
       font-family: 'Nunito', sans-serif;
+      background-color: #c4e5ff;
+      text-shadow: 1px 1px 2px #000000;    }
+
+    .card {
+      transition: transform 0.5s;
+      position: relative;
+      overflow: hidden;
     }
-    /* ... kode CSS lainnya ... */
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .gray-card {
+      background-color: #e0f6a8;
+      box-shadow: 10px 10px 25px -15px #2eff3c;
+    }
+    
   </style>
 </head>
 
@@ -25,7 +40,7 @@
 
     <div class="row">
       <div class="col-md-6">
-        <div class="card">
+        <div class="card gray-card">
           <div class="card-body">
             <h4 class="card-title">Pendaftaran Pasien</h4>
             <div class="form-group">
@@ -38,13 +53,13 @@
       </div>
 
       <div class="col-md-6">
-        <div class="card">
+        <div class="card gray-card">
           <div class="card-body">
             <h4 class="card-title">Daftar Nomor Antrian:</h4>
             <ul class="list-group" id="daftarAntrian">
               <!-- Daftar nomor antrian akan ditampilkan di sini -->
             </ul>
-            <button class="btn btn-success mt-3" onclick="eksekusiAntrian()">Eksekusi Antrian Paling Atas</button>
+            <button class="btn btn-primary" onclick="eksekusiAntrian()">Eksekusi Antrian Paling Atas</button>
           </div>
         </div>
       </div>
@@ -52,7 +67,7 @@
 
     <div class="row mt-4">
       <div class="col-md-6">
-        <div class="card">
+        <div class="card gray-card">
           <div class="card-body">
             <h4 class="card-title">Ruang Dokter:</h4>
             <h5 id="judulPeriksa"></h5>
